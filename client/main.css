@@ -1,0 +1,18 @@
+/* CSS declarations go here */
+#login {
+  height: 10em;
+  display: flex;
+  align-items: center;
+  justify-content: center
+}
+body
+{background-color: grey;}
+
+h1{
+  display: flex;
+  align-items: center;
+  justify-content: center
+}
+.login-link-text{
+  color: black;
+}
