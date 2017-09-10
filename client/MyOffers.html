@@ -1,11 +1,15 @@
 <template name="MyOffers">
-
+    {{> Header}}
+    {{> SideNav}}
+    <div class="main-layout">
             {{> NewOffer}}
             <h2> MY OFFERS </h2>
             {{#each i in offers}}
-               Offer: {{i.title}}
+                <div class="offer">
+                {{i.title}}
+                </div>
             <br>
             {{/each}}
-
+    </div>
 </template>
   
