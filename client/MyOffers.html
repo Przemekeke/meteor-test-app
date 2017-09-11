@@ -5,9 +5,10 @@
             {{> NewOffer}}
             <h2> MY OFFERS </h2>
             {{#each i in offers}}
-                <div class="offer">
-                {{i.title}}
-                </div>
+                <article class="offer">
+                <h3> {{i.title}} </h3>
+                <a href="offer/{{i._id}}">View Details</a>
+                </article>
             <br>
             {{/each}}
     </div>
