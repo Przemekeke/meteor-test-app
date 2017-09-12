@@ -1,14 +1,25 @@
 Meteor.subscribe('offers');
+/*
+Template.FindOffers.onCreate({
 
-Template.MyOffers.helpers({ 
+    Session.set('currentTitlte','');        
+}); */
+Template.FindOffers.helpers({ 
     offers: ()=>{
         return Offers.find({});
     },
 
-    findOffer: ()=>{
-        return Offers.findOne({
-           'Title': {$regex : ".*s.*"}           
+    findOffers: function(){
+        console.log(document.getElementById("find-offers"));
+        return Offers.find({
+           title: {$regex : '.*'+ Session.get('currentTitlte') +'.*'}           
         });
         
     }
 }); 
+
+Template.FindOffers.events({
+    'keyup #find-offers': function(event){
+        Session.set('currentTitlte',event.target.value)        
+    } 
+})
