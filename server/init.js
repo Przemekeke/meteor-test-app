@@ -1,9 +1,18 @@
 import { Meteor } from 'meteor/meteor';
-
+export { getInput } 
 Meteor.startup(() => {
  Accounts.config({
     // enable client user creation
    forbidClientAccountCreation: false
+ });
+/*
+ Meteor.methods({
+
+    'getInput': function(){
+        var title = $('#find-offers').val();  // get value from input field
+        console.log(title);
+      return title;
+      }
  });
 /*
  Accounts.ui.config({

@@ -1,9 +1,5 @@
 Meteor.subscribe('offers');
-/*
-Template.FindOffers.onCreate({
 
-    Session.set('currentTitlte','');        
-}); */
 Template.FindOffers.helpers({ 
     offers: ()=>{
         return Offers.find({});

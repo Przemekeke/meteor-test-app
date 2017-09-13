@@ -7,6 +7,8 @@
             {{#each i in offers}}
                 <article class="offer">
                 <h3> {{i.title}} </h3>
+                {{i.description}}
+                {{i.pictutreFile}}
                 <a href="offer/{{i._id}}">View Details</a>
                 </article>
             <br>
