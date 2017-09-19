@@ -3,7 +3,7 @@ export { getInput }
 Meteor.startup(() => {
  Accounts.config({
     // enable client user creation
-   forbidClientAccountCreation: false
+  // forbidClientAccountCreation: false
  });
 /*
  Meteor.methods({

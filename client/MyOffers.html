@@ -2,15 +2,22 @@
     {{> Header}}
     {{> SideNav}}
     <div class="main-layout">
+            
+            
             {{> NewOffer}}
             <h2> MY OFFERS </h2>
-            {{#each i in offers}}
+            {{#each offers}}
                 <article class="offer">
-                <h3> {{i.title}} </h3>
-                {{i.description}}
-                {{i.pictutreFile}}
-                <a href="offer/{{i._id}}">View Details</a>
-                </article>
+                <h3> {{title}} </h3>
+                {{description}}
+                {{pictutreFile}}
+                <a href="offer/{{_id}}">View Details</a>
+                <i class="fa fa-trash"></i>
+                <i class="fa fa-pencil"></i>                
+                {{#if $.Sesion.get 'editMode'}}
+                {{> quickForm collection="Offers" id="updateRecipe" type="update" doc=this}}       
+                {{/if}}
+            </article>
             <br>
             {{/each}}
     </div>

@@ -1,65 +1,78 @@
 import { Mongo } from 'meteor/mongo';
 import SimpleSchema from 'simpl-schema';
+SimpleSchema.extendOptions(['autoform']);
 
-UserProfile = new SimpleSchema({
+Schema ={}
+
+Schema.UserProfile = new SimpleSchema({
 	firstName: {
 		type: String,
-		regEx: /^[a-zA-Z-]{2,25}$/,
 		optional: true
 	},
 	lastName: {
 		type: String,
-		regEx: /^[a-zA-Z]{2,25}$/,
 		optional: true
 	},
 	birthday: {
 		type: Date,
-		optional: true
+		optional: true,
+		autoform:{
+			type: 'date'
+		}
 	},
-	website: {
+	gender: {
 		type: String,
-		regEx: SimpleSchema.RegEx.Url,
-		optional: true
-	},
-	bio: {
-		type: String,
+		allowedValues: ['Male', 'Female'],
 		optional: true
 	}
-});
-
-Meteor.users.schema = new SimpleSchema({
-	username: {
-		type: String,
-        regEx: /^[a-z0-9A-Z_]{3,15}$/,
-        optional: true
-        
-	},
+	});
+	
+	Schema.User = new SimpleSchema({
 	emails: {
-		type: Array,
-		optional: true
+	type: Array,
+	optional: true
+	},
+	"emails.$": {
+	type: Object
 	},
 	"emails.$.address": {
-		type: String,
-		regEx: SimpleSchema.RegEx.Email
+	type: String,
+	regEx: SimpleSchema.RegEx.Email
 	},
 	"emails.$.verified": {
-		type: Boolean
+	type: Boolean
 	},
 	createdAt: {
-		type: Date
+	type: Date,
+	autoValue: function() {
+	return new Date()
+	},
+	autoform: {
+	type: "hidden"
+	}
 	},
 	profile: {
-		type: UserProfile,
-		optional: true
+	type: Schema.UserProfile,
+	optional: true
 	},
+	// Make sure this services field is in your schema if you're using any of the accounts packages
 	services: {
-		type: Object,
-		optional: true,
-		blackbox: true
+			type: Object,
+			optional: true,
+			blackbox: true,
+			autoform: {
+			type: "hidden"
+			}
+		}
+	});
+	
+	Meteor.users.allow({
+	update: function(userId, doc) {
+	return !!userId;
 	}
-});
-Meteor.users.attachSchema(Meteor.users.schema);
+	});
 
+Meteor.users.attachSchema(Schema.User);
 
 Meteor.users.allow({
 	  insert: function () { return true; },

@@ -2,24 +2,14 @@
         {{> Header}}
         {{> SideNav}}
         <div class="main-layout">
+
         {{#if Template.subscriptionsReady}}
-        {{#autoForm id="UserProfileEdit" collection="Meteor.users"  doc=currentUser type="update"}}
-                        {{> afQuickField name="username"}}
-                        {{> afQuickField name="profile.firstName"}}
-                        {{> afQuickField name="profile.lastName"}}
-                        {{> afQuickField name="profile.bio" rows="6"}}
-                        {{> afQuickField name="profile.website"}}
-        <div class="form-group">
-                        <button type="submit" class="btn btn-primary">Submit</button>
-        </div>
-        {{/autoForm}}
+            {{# autoForm id="profile-edit" collection="Meteor.users"  
+                doc=currentUser type="update"}}
+                {{> afArrayField name='emails'}}                       
+                {{> afObjectField name='profile'}}
+                <button type="submit" class="btn btn-primary">Update</button>
+                {{/autoForm}}        
         {{/if}}
-
-
-       <!--         {{> quickForm id="UserProfileEdit" collection="users"  
-                doc=profile type="update" buttonContent="Save Changes"}}
-                {{#unless autoSaveMode}}
-   
-                {{/unless}}-->
         </div>
 </template>
