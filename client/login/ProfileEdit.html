@@ -6,6 +6,7 @@
         {{#if Template.subscriptionsReady}}
             {{# autoForm id="profile-edit" collection="Meteor.users"  
                 doc=currentUser type="update"}}
+                {{> afQuickField name="firstName"}}
                 {{> afArrayField name='emails'}}                       
                 {{> afObjectField name='profile'}}
                 <button type="submit" class="btn btn-primary">Update</button>

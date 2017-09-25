@@ -4,6 +4,9 @@
         <div class="main-layout">
             <article class="offer">
                 <h2>{{offer.title}}</h2>  {{offer.pictutreFile}} -- {{offer.description}}
+
+                {{> quickForm collection="Offers" id="updateRecipe" type="update" doc=offer}}       
+                
             </article>
         </div>
 </template>

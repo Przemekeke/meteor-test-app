@@ -17,43 +17,46 @@ Schema.UserProfile = new SimpleSchema({
 		type: Date,
 		optional: true,
 		autoform:{
-			type: 'date'
+			type: 'date' 
 		}
 	},
 	gender: {
 		type: String,
 		allowedValues: ['Male', 'Female'],
-		optional: true
+		optional: true,
+		autoform:{
+			type: 'select-radio'
+		}
 	}
 	});
 	
 	Schema.User = new SimpleSchema({
 	emails: {
-	type: Array,
-	optional: true
+		type: Array,
+		optional: true
 	},
 	"emails.$": {
-	type: Object
+		type: Object
 	},
 	"emails.$.address": {
-	type: String,
-	regEx: SimpleSchema.RegEx.Email
+		type: String,
+		regEx: SimpleSchema.RegEx.Email
 	},
 	"emails.$.verified": {
-	type: Boolean
+		type: Boolean
 	},
 	createdAt: {
-	type: Date,
-	autoValue: function() {
-	return new Date()
+		type: Date,
+		autoValue: function() {
+		return new Date()
 	},
 	autoform: {
-	type: "hidden"
+		type: "hidden"
 	}
 	},
 	profile: {
-	type: Schema.UserProfile,
-	optional: true
+		type: Schema.UserProfile,
+		optional: true
 	},
 	// Make sure this services field is in your schema if you're using any of the accounts packages
 	services: {
