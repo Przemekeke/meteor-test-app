@@ -1,22 +1,24 @@
 <template name="MyOffers">
     {{> Header}}
     {{> SideNav}}
-    <div class="main-layout">
-            
-            
+    <div class="main-layout">   
             {{> NewOffer}}
             <h2> MY OFFERS </h2>
             {{#each offers}}
                 <article class="offer">
                 <h3> {{title}} </h3>
                 {{description}}
-                {{pictutreFile}}
+                <br>
+                {{#each (showPicture picture)}}
+                <div class="image">
+                        <a href="{{this.url}}" target="_blank">
+                            <img src="{{this.url store='images'}}" alt="" />
+                        </a>
+                </div>   
+                {{/each}}          
+                  <br><br>
                 <a href="offer/{{_id}}">View Details</a>
                 <i class="fa fa-trash"></i>
-                <i class="fa fa-pencil"></i>                
-                {{#if $.Sesion.get 'editMode'}}
-                {{> quickForm collection="Offers" id="updateRecipe" type="update" doc=this}}       
-                {{/if}}
             </article>
             <br>
             {{/each}}

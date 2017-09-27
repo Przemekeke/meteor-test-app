@@ -1,6 +1,9 @@
 import { Meteor } from 'meteor/meteor';
 export { getInput } 
 Meteor.startup(() => {
+
+
+
  Accounts.config({
     // enable client user creation
   // forbidClientAccountCreation: false
