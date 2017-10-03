@@ -18,6 +18,7 @@ Schema.UserProfile = new SimpleSchema({
 		optional: true,
 		autoform:{
 			type: "date"
+			type: 'date' 
 		}
 	},
 	gender: {
@@ -25,6 +26,7 @@ Schema.UserProfile = new SimpleSchema({
 		allowedValues: ['Male', 'Female'],
 		optional: true,
 		autoform:{
+			allowedValues: ['Male', 'Female'],			
 			type: 'select-radio'
 		}
 	}
