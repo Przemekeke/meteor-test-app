@@ -3,7 +3,7 @@ Meteor.subscribe('users');
 Meteor.subscribe('images');
 
 
-Template.MyOffers.helpers({ 
+Template.SingleOffer.helpers({ 
     offers: ()=>{
         return Offers.find({});
     },
@@ -18,7 +18,7 @@ Template.MyOffers.helpers({
     }
 }); 
 
-Template.MyOffers.events({ 
+Template.SingleOffer.events({ 
     'click .fa-trash': function(){
         Offers.remove({_id: this._id});        
     }

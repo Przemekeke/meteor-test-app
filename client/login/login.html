@@ -1,6 +1,6 @@
 <template name='login'>
   <header>Welcome, Meteor test app</header>
-  <body style='background-image: url("index.jpeg"); color:white'>
+  <body class='main-body'>
   <div  id="login" style="margin-top:10%">
 
     {{> LoginModal}}
@@ -10,7 +10,8 @@
 
 
 <template name="_loginButtonsAdditionalLoggedInDropdownActions">
-    <a class="btn btn-default btn-block" id="login-buttons-edit-profile" href='/profile-edit'>
+    <a class="btn btn-default btn-block" id="login-buttons-edit-profile" href='/profile-edit' 
+    style="color:white">
       Edit profile</a>
   </template>
 

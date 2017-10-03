@@ -1,24 +1,11 @@
 <template name="MyOffers">
     {{> Header}}
     {{> SideNav}}
-    <div class="main-layout">
-            
-            
+    <div class="main-layout">   
             {{> NewOffer}}
-            <h2> MY OFFERS </h2>
+            <h1> MY OFFERS </h1>
             {{#each offers}}
-                <article class="offer">
-                <h3> {{title}} </h3>
-                {{description}}
-                {{pictutreFile}}
-                <a href="offer/{{_id}}">View Details</a>
-                <i class="fa fa-trash"></i>
-                <i class="fa fa-pencil"></i>                
-                {{#if $.Sesion.get 'editMode'}}
-                {{> quickForm collection="Offers" id="updateRecipe" type="update" doc=this}}       
-                {{/if}}
-            </article>
-            <br>
+                {{> SingleOffer}}
             {{/each}}
     </div>
 </template>

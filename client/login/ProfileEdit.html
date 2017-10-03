@@ -2,15 +2,15 @@
         {{> Header}}
         {{> SideNav}}
         <div class="main-layout">
-
         {{#if Template.subscriptionsReady}}
-            {{# autoForm id="profile-edit" collection="Meteor.users"  
+            {{# autoForm id="profile-edit" collection="Meteor.users"
                 doc=currentUser type="update"}}
-                {{> afQuickField name="firstName"}}
-                {{> afArrayField name='emails'}}                       
+                Username
+                {{> afQuickField name="username"}}
+                {{> afArrayField name='emails'}}
                 {{> afObjectField name='profile'}}
                 <button type="submit" class="btn btn-primary">Update</button>
-                {{/autoForm}}        
+                {{/autoForm}}
         {{/if}}
         </div>
 </template>

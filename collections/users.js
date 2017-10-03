@@ -17,7 +17,7 @@ Schema.UserProfile = new SimpleSchema({
 		type: Date,
 		optional: true,
 		autoform:{
-			type: 
+			type: "date"
 		}
 	},
 	gender: {
