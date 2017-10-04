@@ -52,15 +52,10 @@ meteortoys:allthings
 
 useraccounts:unstyled
 aldeed:template-extension
-<<<<<<< HEAD
 cfs:standard-packages
 cfs:filesystem
-yogiben:autoform-file
 session
 service-configuration
-=======
-yogiben:autoform-file
-cfs:standard-packages
-cfs:filesystem
-cfs:gridfs
->>>>>>> c5bc2a347e040285c551948044be82f97b74b356
+
+shinn:autoform-file
+tsega:bootstrap3-datetimepicker

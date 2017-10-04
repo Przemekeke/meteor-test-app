@@ -17,8 +17,11 @@ Schema.UserProfile = new SimpleSchema({
 		type: Date,
 		optional: true,
 		autoform:{
-			type: "date"
-			type: 'date' 
+			type: "bootstrap-datepicker",
+			datePickerOptions: {
+			  autoclose: true,
+			  format: 'dd M yyyy'
+			} 
 		}
 	},
 	gender: {

@@ -2,7 +2,6 @@ Meteor.subscribe('offers');
 Meteor.subscribe('users');
 Meteor.subscribe('images');
 
-
 Template.MyOffers.helpers({ 
     offers: ()=>{
         return Offers.find({});

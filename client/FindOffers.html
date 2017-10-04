@@ -2,15 +2,18 @@
     {{> Header}}
     {{> SideNav}}
     <div class="main-layout">
-        
         <h1> Find Offers </h1>
-        <h3 style="color:white"> Offer title: </h3> 
-        <input id="find-offers" type="text">
+        <h3 style="color:white"> Offer title/description: </h3> 
+        <form class="form-wrapper cf find-offers">
+            <input type="text" name="text" text="Search here..." required>
+            <button type="submit">Search</button>
+        </form>
+        <br>
         {{#if Template.subscriptionsReady}}
             {{#each findOffers}}
                 {{> SingleOffer}}
             {{/each}}
-        {{/if}}        
+        {{/if}}
     <div id="finded-offers">
         </div>
     </div>
