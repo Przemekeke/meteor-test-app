@@ -1,14 +1,8 @@
-<template name="override-atForm">
+<template name="overide-atForm">
     {{#unless hide}}
       <div class="at-form">
         {{#if showTitle}}
           {{> atTitle}}
-        {{/if}}
-        {{#if showOauthServices}}
-          {{> atOauth}}
-        {{/if}}
-        {{#if showServicesSeparator}}
-          {{> atSep}}
         {{/if}}
         {{#if showError}}
           {{> atError}}
@@ -21,6 +15,12 @@
         {{/if}}
         {{#if showPwdForm}}
           {{> atPwdForm}}
+        {{/if}}
+        {{#if showServicesSeparator}}
+          {{> atSep}}
+        {{/if}}
+        {{#if showOauthServices}}
+          {{> atOauth}}
         {{/if}}
         {{#if showTermsLink}}
           {{> atTermsLink}}
