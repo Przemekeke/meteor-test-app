@@ -1,7 +1,5 @@
 Meteor.publish('offers', function(){
-    return Offers.find({
-    });
-    
+    return Offers.find({user: this.userId});
 });
 
 Meteor.publish('users', function(){

@@ -40,6 +40,16 @@ Offers.schema = new SimpleSchema({
          label: 'Choose file'
        }
      }
+   },
+   user:{
+     type: String,
+     autoform: {
+       type: "hidden",
+       label: false
+     },
+     autoValue: function() {
+      return Meteor.userId();
+     } 
    }
 })
 
