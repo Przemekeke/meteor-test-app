@@ -17,8 +17,4 @@ Template.MyOffers.helpers({
     }
 }); 
 
-Template.MyOffers.events({ 
-    'click .fa-trash': function(){
-        Offers.remove({_id: this._id});        
-    }
-}); 
+

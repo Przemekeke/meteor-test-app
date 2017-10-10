@@ -19,7 +19,17 @@ Template.SingleOffer.helpers({
 }); 
 
 Template.SingleOffer.events({ 
-    'click .fa-trash': function(){
-        Offers.remove({_id: this._id});        
-    }
+    'click .fa-trash': function(event){
+        var id = this._id; 
+        new Confirmation({
+            message: "Are you sure you want to delete this?",
+            title: "Confirmation",
+            cancelText: "Cancel",
+            okText: "Ok",
+            success: true, 
+            focus: "cancel" 
+          }, function (ok) {            
+                Offers.remove({_id: id});        
+        });
+    }    
 }); 
