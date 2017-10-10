@@ -69,7 +69,7 @@ Schema.UserProfile = new SimpleSchema({
 			optional: true,
 			blackbox: true,
 			autoform: {
-			type: "hidden"
+				type: "hidden"
 			}
 		}
 	});
