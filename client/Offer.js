@@ -9,7 +9,6 @@ Template.Offer.onCreated(function() {
 Template.Offer.helpers({ 
     offer: ()=>{
         var id = FlowRouter.getParam('id');
-        console.log(id);
         return Offers.findOne({
             _id: id
         });

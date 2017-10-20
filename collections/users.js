@@ -5,6 +5,10 @@ SimpleSchema.extendOptions(['autoform']);
 Schema ={}
 
 Schema.UserProfile = new SimpleSchema({
+	username:{
+		type: String,
+		label: "Username"
+	},	
 	firstName: {
 		type: String,
 		optional: true
@@ -15,70 +19,72 @@ Schema.UserProfile = new SimpleSchema({
 	},
 	birthday: {
 		type: Date,
-		optional: true,
-		autoform:{
-			type: "bootstrap-datepicker",
+		optional: true,		
+		autoform: {
+		type: "bootstrap-datepicker",
 			datePickerOptions: {
-			  autoclose: true,
-			  format: 'dd M yyyy'
-			} 
+				autoclose: true
+			}
 		}
 	},
 	gender: {
 		type: String,
-		allowedValues: ['Male', 'Female'],
 		optional: true,
-		autoform:{
-			allowedValues: ['Male', 'Female'],			
-			type: 'select-radio'
+		autoform: {
+			type:"select-radio",
+			options: function () {
+				return [
+				   { label: "Male", value: "Male"},
+				   { label: "Female", value: "Female"},				   
+				   ];
+			},
 		}
 	}
 	});
 	
 	Schema.User = new SimpleSchema({
-	emails: {
-		type: Array,
-		optional: true
-	},
-	"emails.$": {
-		type: Object
-	},
-	"emails.$.address": {
-		type: String,
-		regEx: SimpleSchema.RegEx.Email
-	},
-	"emails.$.verified": {
-		type: Boolean
-	},
-	createdAt: {
-		type: Date,
-		autoValue: function() {
-		return new Date()
-	},
-	autoform: {
-		type: "hidden"
-	}
-	},
-	profile: {
-		type: Schema.UserProfile,
-		optional: true
-	},
-	// Make sure this services field is in your schema if you're using any of the accounts packages
-	services: {
-			type: Object,
-			optional: true,
-			blackbox: true,
+		emails: {
+			type: Array,
+			optional: true
+		},
+		"emails.$": {
+			type: Object
+		},
+		"emails.$.address": {
+			type: String,
+			regEx: SimpleSchema.RegEx.Email
+		},
+		"emails.$.verified": {
+			type: Boolean,
+			autoform: {
+      			type: "boolean-checkbox"
+    		}
+		},
+		createdAt: {
+			type: Date,
+			autoValue: function() {
+				return new Date()
+			},
 			autoform: {
 				type: "hidden"
 			}
-		}
+		},
+		profile: {
+			type: Schema.UserProfile,
+			optional: true,
+		},
+		// Make sure this services field is in your schema if you're using any of the accounts packages
+		services: {
+				type: Object,
+				optional: true,
+				blackbox: true,
+				autoform: {
+					type: "hidden"
+				}
+			}
 	});
 	
-	Meteor.users.allow({
-	update: function(userId, doc) {
-	return !!userId;
-	}
-	});
+
 
 Meteor.users.attachSchema(Schema.User);
 
