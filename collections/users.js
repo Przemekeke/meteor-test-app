@@ -1,13 +1,14 @@
 import { Mongo } from 'meteor/mongo';
+import { Tracker } from 'meteor/tracker';
 import SimpleSchema from 'simpl-schema';
 SimpleSchema.extendOptions(['autoform']);
 
-Schema ={}
+Schema ={};
 
 Schema.UserProfile = new SimpleSchema({
 	username:{
 		type: String,
-		label: "Username"
+		label: 'Username'
 	},	
 	firstName: {
 		type: String,
@@ -21,7 +22,7 @@ Schema.UserProfile = new SimpleSchema({
 		type: Date,
 		optional: true,		
 		autoform: {
-		type: "bootstrap-datepicker",
+			type: 'bootstrap-datepicker',
 			datePickerOptions: {
 				autoclose: true
 			}
@@ -31,58 +32,58 @@ Schema.UserProfile = new SimpleSchema({
 		type: String,
 		optional: true,
 		autoform: {
-			type:"select-radio",
+			type:'select-radio',
 			options: function () {
 				return [
-				   { label: "Male", value: "Male"},
-				   { label: "Female", value: "Female"},				   
+				   { label: 'Male', value: 'Male'},
+				   { label: 'Female', value: 'Female'},				   
 				   ];
 			},
 		}
 	}
-	});
+}, {tracker: Tracker});
 	
-	Schema.User = new SimpleSchema({
-		emails: {
-			type: Array,
-			optional: true
-		},
-		"emails.$": {
-			type: Object
-		},
-		"emails.$.address": {
-			type: String,
-			regEx: SimpleSchema.RegEx.Email
-		},
-		"emails.$.verified": {
-			type: Boolean,
-			autoform: {
-      			type: "boolean-checkbox"
+Schema.User = new SimpleSchema({
+	emails: {
+		type: Array,
+		optional: true
+	},
+	'emails.$': {
+		type: Object
+	},
+	'emails.$.address': {
+		type: String,
+		regEx: SimpleSchema.RegEx.Email
+	},
+	'emails.$.verified': {
+		type: Boolean,
+		autoform: {
+      			type: 'boolean-checkbox'
     		}
+	},
+	createdAt: {
+		type: Date,
+		autoValue: function() {
+			return new Date();
 		},
-		createdAt: {
-			type: Date,
-			autoValue: function() {
-				return new Date()
-			},
-			autoform: {
-				type: "hidden"
-			}
-		},
-		profile: {
-			type: Schema.UserProfile,
-			optional: true,
-		},
-		// Make sure this services field is in your schema if you're using any of the accounts packages
-		services: {
-				type: Object,
-				optional: true,
-				blackbox: true,
-				autoform: {
-					type: "hidden"
-				}
-			}
-	});
+		autoform: {
+			type: 'hidden'
+		}
+	},
+	profile: {
+		type: Schema.UserProfile,
+		optional: true,
+	},
+	// Make sure this services field is in your schema if you're using any of the accounts packages
+	services: {
+		type: Object,
+		optional: true,
+		blackbox: true,
+		autoform: {
+			type: 'hidden'
+		}
+	}
+}, {tracker: Tracker});
 	
 
 

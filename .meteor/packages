@@ -26,7 +26,6 @@ spiderable
 fastclick@1.0.13
 raix:handlebar-helpers
 aldeed:collection2
-aldeed:autoform
 matb33:bootstrap-glyphicons
 msavin:jetsetter
 zimme:active-route
@@ -63,3 +62,5 @@ ian:accounts-ui-bootstrap-3
 aldeed:autoform-bs-datepicker
 rajit:bootstrap3-datepicker
 
+aldeed:simple-schema
+aldeed:autoform
