@@ -11,7 +11,7 @@ module.exports = {
 
   app: {
     name: 'meteor-test-app',
-    path: '../',
+    path: '../../',
 
     servers: {
       one: {},
