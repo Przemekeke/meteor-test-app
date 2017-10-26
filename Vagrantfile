@@ -20,7 +20,8 @@ Vagrant.configure("2") do |config|
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
   config.vm.box = "ubuntu/xenial64"
- 
+  config.vm.box_version = "20171011.0.0"
+
   config.vm.hostname = "meteor-dev"
 
   # Disable automatic box update checking. If you disable this, then
@@ -78,6 +79,7 @@ Vagrant.configure("2") do |config|
 
   # provisioner for copying the app
   config.vm.provision "app", type: "shell", inline: <<-SHELL
+    HOMEDIR=/home/ubuntu
     echo "copying app to ~/"
     cd $HOMEDIR
     mkdir -p meteor-test-app && cp -r /vagrant/. meteor-test-app && echo "OK" || echo "FAILED"
@@ -104,10 +106,9 @@ Vagrant.configure("2") do |config|
 
     echo "updating apt and installing required packages"
     apt-get update
-    apt-get install -y mongodb mongodb-server mongodb-clients && echo "OK" || echo "FAILED"
     
     echo "installing meteor"
-    curl https://install.meteor.com/ | sh
+    curl https://install.meteor.com/?release=1.5.2.2 | sh
     
     echo "installing newest nodejs-6 and npm"
     curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash - && echo "OK" || echo "FAILED"
@@ -116,13 +117,13 @@ Vagrant.configure("2") do |config|
     echo "installing mup"
     sudo npm install -g mup && echo "OK" || echo "FAILED"
     
-    echo "running meteor update"
-    echo "WARNING: this may take a long time to finish!"
-    cd meteor-test-app && sudo -u ubuntu -i /bin/bash -c "cd $(pwd) && meteor update" && echo "OK" || echo "FAILED"
-
     echo "installing required npm modules"
     sudo -u ubuntu -i /bin/bash -c "cd $(pwd) && meteor npm install --save babel-runtime simpl-schema bcrypt" && echo "OK" || echo "FAILED"
     
+    echo "running meteor update"
+    echo "WARNING: this may take a long time to finish!"
+    cd meteor-test-app && sudo -u ubuntu -i /bin/bash -c "cd $(pwd) && meteor update --release 1.5.2.2" && echo "OK" || echo "FAILED"
+
     echo "if it failed, run following command manually after git clone in vagrant ssh: 'cp -r /vagrant/. ~/meteor-test-app/ && cd ~/meteor-test-app && meteor update && meteor npm install --save babel-runtime simpl-schema bcrypt'"
     
     echo "If no errors occured, just run 'vagrant ssh', then 'cd meteor-test-app && meteor'"
