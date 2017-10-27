@@ -22,6 +22,9 @@ module.exports = {
     },
 
     env: {
+      // port for meteor app
+      PORT: 3000,
+
       // If you are using ssl, it needs to start with https://
       ROOT_URL: 'http://192.168.1.220',
       MONGO_URL: 'mongodb://localhost/meteor',
