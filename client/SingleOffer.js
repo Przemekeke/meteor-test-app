@@ -28,8 +28,10 @@ Template.SingleOffer.events({
 			okText: 'Ok',
 			success: true, 
 			focus: 'cancel' 
-		}, function (ok) {            
-			Offers.remove({_id: id});        
+		}, function (ok) {
+			if (ok) {            
+				Offers.remove({_id: id}); 
+			}       
 		});
 	}    
 }); 

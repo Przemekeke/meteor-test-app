@@ -1,15 +1,29 @@
 Meteor.subscribe('users');
 
+
+FlashMessages.configure({
+    autoHide: true,
+    hideDelay: 5000,
+    autoScroll: true
+  });
+
 Template.ProfileEdit.helpers({
-	currentUser () {
+	currentUser : function() {
 		if (Meteor.user()) { return Meteor.user(); }
 	},
 });
 
 AutoForm.hooks({
 	profileEdit: {
-		onSuccess(doc) {
-			FlowRouter.go('MyOffers');
+		update: function(doc) {
+			console.log('doc: ', doc);
+			return doc;
 		},
-	},
+		onSuccess: function(formType, result) {
+			console.log(result);
+		},
+		onError: function(formType, error) {
+			console.log(error);			
+		},		
+	}
 });

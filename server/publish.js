@@ -1,9 +1,9 @@
 Meteor.publish('offers', function(){
-	return Offers.find({ user: this.userId });
+	return Offers.find({});
 });
 
 Meteor.publish('users', function(){
-	return Meteor.users.find({ _id: this.userId });
+	return Meteor.users.find({});
 });
 
 Meteor.publish('images', function(){

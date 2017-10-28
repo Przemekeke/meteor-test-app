@@ -3,11 +3,19 @@ Meteor.subscribe('users');
 Meteor.subscribe('images');
 
 Template.MyOffers.helpers({
-	offers: () => Offers.find({}),
-	updateRecipeID() {
-		return this._id;
+
+	offers: function() {
+		if(Meteor.user()) {
+			return Offers.find({
+				user: Meteor.user()._id
+			});
+		}
+		else {
+			return null
+		}
 	},
-	showPicture(pictureID) {
+
+	showPicture: function(pictureID) {
 		picture = Images.find({
 			_id: pictureID,
 		});

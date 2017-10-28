@@ -20,7 +20,8 @@ Vagrant.configure("2") do |config|
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
   config.vm.box = "ubuntu/xenial64"
- 
+  config.vm.box_version = "20171011.0.0"
+
   config.vm.hostname = "meteor-dev"
 
   # Disable automatic box update checking. If you disable this, then
@@ -75,15 +76,39 @@ Vagrant.configure("2") do |config|
   # Enable provisioning with a shell script. Additional provisioners such as
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
-  config.vm.provision "shell", inline: <<-SHELL
+
+  # provisioner for copying the app
+  config.vm.provision "app", type: "shell", inline: <<-SHELL
+    HOMEDIR=/home/ubuntu
+    echo "copying app to ~/"
+    cd $HOMEDIR
+    mkdir -p meteor-test-app && cp -r /vagrant/. meteor-test-app && echo "OK" || echo "FAILED"
+    echo "fixing permissions"
+    sudo chown -Rh ubuntu meteor-test-app/ && echo "OK" || echo "FAILED"
+    
+    echo "If it's not the first run and all required software is already installed:"
+    echo "To run app: 'vagrant ssh', then 'cd meteor-test-app && meteor'"
+    echo "App will be running at http://127.0.0.1:3000"
+    echo "To deploy this app to a server, run 'vagrant up' from 'production/' dir, then run 'deploy.sh' from ~/meteor-test-app/production dir inside this VM"
+
+  SHELL
+    
+  # provisioner for setup
+  config.vm.provision "setup", type: "shell", inline: <<-SHELL
+    TIMEOUT=15
+    echo "Starting provision 'setup' in $TIMEOUT seconds." >&2
+    echo "If this is not the first run and everything is installed, software will be updated." >&2
+    echo "If you don't want this to happen, press CTRL+C twice." >&2
+    echo "To copy new version of app without running this, use 'vagrant provision --provision-with app'." >&2
+    sleep $TIMEOUT
+    
     HOMEDIR=/home/ubuntu
 
     echo "updating apt and installing required packages"
     apt-get update
-    apt-get install -y mongodb mongodb-server mongodb-clients && echo "OK" || echo "FAILED"
     
     echo "installing meteor"
-    curl https://install.meteor.com/ | sh
+    curl https://install.meteor.com/?release=1.5.2.2 | sh
     
     echo "installing newest nodejs-6 and npm"
     curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash - && echo "OK" || echo "FAILED"
@@ -92,22 +117,18 @@ Vagrant.configure("2") do |config|
     echo "installing mup"
     sudo npm install -g mup && echo "OK" || echo "FAILED"
     
-    echo "copying app to ~/"
-    cd $HOMEDIR
-    mkdir -p meteor-test-app && cp -r /vagrant/. meteor-test-app && echo "OK" || echo "FAILED"
-    echo "fixing permissions"
-    sudo chown -Rh ubuntu meteor-test-app/ && echo "OK" || echo "FAILED"
-        
-    echo "running meteor update"
-    echo "WARNING: this may take a long time to finish!"
-    cd meteor-test-app && sudo -u ubuntu -i /bin/bash -c "cd $(pwd) && meteor update" && echo "OK" || echo "FAILED"
-
     echo "installing required npm modules"
     sudo -u ubuntu -i /bin/bash -c "cd $(pwd) && meteor npm install --save babel-runtime simpl-schema bcrypt" && echo "OK" || echo "FAILED"
     
+    echo "running meteor update"
+    echo "WARNING: this may take a long time to finish!"
+    cd meteor-test-app && sudo -u ubuntu -i /bin/bash -c "cd $(pwd) && meteor update --release 1.5.2.2" && echo "OK" || echo "FAILED"
+
     echo "if it failed, run following command manually after git clone in vagrant ssh: 'cp -r /vagrant/. ~/meteor-test-app/ && cd ~/meteor-test-app && meteor update && meteor npm install --save babel-runtime simpl-schema bcrypt'"
     
-    echo "If no errors occured, just run 'vagrant ssh', then cd meteor-test-app and run 'meteor'"
+    echo "If no errors occured, just run 'vagrant ssh', then 'cd meteor-test-app && meteor'"
+    echo "App will be running at http://127.0.0.1:3000"
     echo "To deploy this app to a server, run 'vagrant up' from 'production/' dir, then run 'deploy.sh' from ~/meteor-test-app/production dir inside this VM"
   SHELL
+  
 end

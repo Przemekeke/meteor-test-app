@@ -1,11 +1,33 @@
 <template name="Header">
     <style>
-        a {color: white;
-        text-decoration: none;}
-        a:hover {color: gray;
-        text-decoration: none;}    
+        a {
+            color: white;
+            text-decoration: none;
+        }
+        a:hover {
+            color: gray;
+            text-decoration: none;
+        }
+        #login-dropdown-list {
+            float: right !important;;
+        }
+        .dropdown {
+            float: right !important;
+            margin-right: 50px;
+        }
+        li {
+            list-style: none;
+        }
+        .dropdown-menu {
+            float: left !important;
+            margin-right: 50px;   
+        }
+        #my-login-buttons {
+            width: 100%;
+        }    
     </style>
     <header>
-        {{> loginButtons}} 
+        <a href="/find-offers"> <h1>  Meteor Test App</h1></a>
+        <div id="my-login-buttons"> {{> loginButtons}} </div>
     </header>
 </template>

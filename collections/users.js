@@ -3,46 +3,6 @@ import { Tracker } from 'meteor/tracker';
 import SimpleSchema from 'simpl-schema';
 SimpleSchema.extendOptions(['autoform']);
 
-Schema ={};
-
-Schema.UserProfile = new SimpleSchema({
-	username:{
-		type: String,
-		label: 'Username',
-		unique: true
-	},	
-	firstName: {
-		type: String,
-		optional: true
-	},
-	lastName: {
-		type: String,
-		optional: true
-	},
-	birthday: {
-		type: Date,
-		optional: true,		
-		autoform: {
-			type: 'bootstrap-datepicker',
-			datePickerOptions: {
-				autoclose: true
-			}
-		}
-	},
-	gender: {
-		type: String,
-		optional: true,
-		autoform: {
-			type:'select-radio',
-			options: function () {
-				return [
-				   { label: 'Male', value: 'Male'},
-				   { label: 'Female', value: 'Female'},				   
-				   ];
-			},
-		}
-	}
-}, {tracker: Tracker});
 	
 Schema.User = new SimpleSchema({
 	emails: {
@@ -50,7 +10,8 @@ Schema.User = new SimpleSchema({
 		optional: true
 	},
 	'emails.$': {
-		type: Object
+		type: Object,
+		optional: true,		
 	},
 	'emails.$.address': {
 		type: String,
@@ -58,9 +19,10 @@ Schema.User = new SimpleSchema({
 	},
 	'emails.$.verified': {
 		type: Boolean,
+		optional: true,
 		autoform: {
       			type: 'boolean-checkbox'
-    		}
+			}
 	},
 	createdAt: {
 		type: Date,
@@ -73,9 +35,8 @@ Schema.User = new SimpleSchema({
 	},
 	profile: {
 		type: Schema.UserProfile,
-		optional: true,
+		optional: true
 	},
-	// Make sure this services field is in your schema if you're using any of the accounts packages
 	services: {
 		type: Object,
 		optional: true,
@@ -86,8 +47,6 @@ Schema.User = new SimpleSchema({
 	}
 }, {tracker: Tracker});
 	
-
-
 Meteor.users.attachSchema(Schema.User);
 
 Meteor.users.allow({
@@ -95,3 +54,4 @@ Meteor.users.allow({
 	  update: function () { return true; },
 	  remove: function () { return true; }
 });
+
