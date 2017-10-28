@@ -8,7 +8,8 @@ Schema ={};
 Schema.UserProfile = new SimpleSchema({
 	username:{
 		type: String,
-		label: 'Username'
+		label: 'Username',
+		unique: true
 	},	
 	firstName: {
 		type: String,

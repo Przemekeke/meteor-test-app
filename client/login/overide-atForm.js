@@ -19,7 +19,6 @@ Template.overideatForm.events({
       var email = $('#at-field-email').val();
       var password = $('#at-field-password').val();
       const username = $('#at-field-username').val();
-      console.log(username);
       Accounts.createUser(
         {
           email,
@@ -37,11 +36,21 @@ Template.overideatForm.events({
       console.log('done');
       console.log(($('#at-field-username')).val());
     } else {
-      var email = $('#at-field-username_and_email').val();
+      var emailOrUsername = $('#at-field-username_and_email').val();
       var password = $('#at-field-password').val();
-      Meteor.loginWithPassword(email, password, function(error) {
-        console.log(error.reason);
+      var user = Meteor.users.findOne({
+        'profile.username' : emailOrUsername
       });
+      if (user != null) {
+        Meteor.loginWithPassword(user.emails[0].address, password, function(error) {
+          console.log(error.reason);
+        });        
+      }
+      else {
+        Meteor.loginWithPassword(emailOrUsername, password, function(error) {
+          console.log(error.reason);
+        });
+      }
     }
   },
 });
