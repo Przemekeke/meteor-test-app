@@ -2,6 +2,7 @@
         {{> Header}}
         {{> SideNav}}
         <div class="main-layout">
+        <legend>Update Profile</legend>                        
         {{#if Template.subscriptionsReady}}
                 {{# autoForm id="profileEdit" collection="Meteor.users"
                         doc=currentUser type="update"}}

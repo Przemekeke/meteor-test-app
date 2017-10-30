@@ -1,56 +1,57 @@
 import { Mongo } from 'meteor/mongo';
+import { Tracker } from 'meteor/tracker';
 import SimpleSchema from 'simpl-schema';
 SimpleSchema.extendOptions(['autoform']);
 
 Offers = new Meteor.Collection('offers');
 
 Offers.allow({
-  insert: function(userId, doc) {
-    return !!userId;
-  },
-  update: function() {
-    return true;
-  },
-  remove: function() {
-    return true;
-  }
+	insert: function(userId, doc) {
+		return !!userId;
+	},
+	update: function() {
+		return true;
+	},
+	remove: function() {
+		return true;
+	}
 });
 
 
 Offers.schema = new SimpleSchema({
 
-  title: {
-    label: "Title",
-    type: String
-  },
-  description:
+	title: {
+		label: 'Title',
+		type: String
+	},
+	description:
   {
-    label:"Description",
-    type: String
+  	label:'Description',
+  	type: String
   },
-    picture: {
-     type: String,
-     optional: true,
-     autoform:
+	picture: {
+		type: String,
+		optional: true,
+		autoform:
      {
-       afFieldInput:
+     	afFieldInput:
        {
-         type: 'fileUpload',
-         collection: 'Images',
-         label: 'Choose file'
+       	type: 'fileUpload',
+       	collection: 'Images',
+       	label: 'Choose file'
        }
      }
-   },
-   user:{
-     type: String,
-     autoform: {
-       type: "hidden",
-       label: false
-     },
-     autoValue: function() {
-      return Meteor.userId();
-     } 
-   }
-})
+	},
+	user:{
+		type: String,
+		autoform: {
+			type: 'hidden',
+			label: false
+		},
+		autoValue: function() {
+			return Meteor.userId();
+		} 
+	}
+}, {tracker: Tracker});
 
 Offers.attachSchema(Offers.schema);

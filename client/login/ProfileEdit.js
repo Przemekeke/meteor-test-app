@@ -1,23 +1,29 @@
 Meteor.subscribe('users');
 
-Template.ProfileEdit.helpers({
-    currentUser: function () {      
-        if(Meteor.user())
-             return Meteor.user()
-    }
-});
 
-Template.ProfileEdit.events({ 
- //   'click .btn-primary': function(event) { 
-  //       FlowRouter.go('MyOffers');         
-  //  } 
+FlashMessages.configure({
+    autoHide: true,
+    hideDelay: 5000,
+    autoScroll: true
+  });
+
+Template.ProfileEdit.helpers({
+	currentUser : function() {
+		if (Meteor.user()) { return Meteor.user(); }
+	},
 });
 
 AutoForm.hooks({
-    profileEdit: {
-        onSuccess: function(doc) {
-            console.log("Dziala");
-            FlowRouter.go('MyOffers');         
-        }
-    }
+	profileEdit: {
+		update: function(doc) {
+			console.log('doc: ', doc);
+			return doc;
+		},
+		onSuccess: function(formType, result) {
+			console.log(result);
+		},
+		onError: function(formType, error) {
+			console.log(error);			
+		},		
+	}
 });
